@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.algorithmvisualizer.controller.MainController"
+            prefWidth="1100" prefHeight="700"
+            styleClass="root-pane">
+
+    <!-- TOP: Title Bar -->
+    <top>
+        <HBox styleClass="title-bar" alignment="CENTER" prefHeight="50">
+            <Label text="🔢 Algorithm Visualizer" styleClass="app-title"/>
+        </HBox>
+    </top>
+
+    <!-- CENTER: Canvas -->
+    <center>
+        <VBox styleClass="canvas-container" alignment="CENTER">
+            <Canvas fx:id="visualCanvas"
+                    width="760" height="480"
+                    styleClass="vis-canvas"/>
+            <!-- Step info bar below canvas -->
+            <HBox spacing="30" alignment="CENTER" styleClass="info-bar">
+                <Label fx:id="statusLabel"    text="Ready"         styleClass="info-label"/>
+                <Label fx:id="stepCountLabel" text="Step: 0 / 0"  styleClass="info-label"/>
+                <Label fx:id="comparisonsLabel" text="Comparisons: 0" styleClass="info-label"/>
+                <Label fx:id="swapsLabel"     text="Swaps: 0"     styleClass="info-label"/>
+            </HBox>
+            <ProgressBar fx:id="sortProgress" progress="0" prefWidth="760" prefHeight="8"/>
+        </VBox>
+    </center>
+
+    <!-- RIGHT: Control Panel -->
+    <right>
+        <VBox styleClass="control-panel" spacing="14" prefWidth="310">
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <!-- Algorithm Selection -->
+            <Label text="Algorithm" styleClass="section-label"/>
+            <ComboBox fx:id="algorithmComboBox"
+                      onAction="#onAlgorithmChanged"
+                      prefWidth="280"
+                      styleClass="combo-styled"/>
+
+            <!-- Visualizer Mode -->
+            <Label text="Visualization Mode" styleClass="section-label"/>
+            <ComboBox fx:id="visualizerComboBox"
+                      onAction="#onVisualizerChanged"
+                      prefWidth="280"
+                      styleClass="combo-styled"/>
+
+            <!-- Separator -->
+            <Separator/>
+
+            <!-- Speed Control -->
+            <Label text="Speed (ms delay)" styleClass="section-label"/>
+            <Slider fx:id="speedSlider"
+                    min="20" max="1500" value="300"
+                    showTickMarks="true"
+                    showTickLabels="true"
+                    majorTickUnit="400"
+                    prefWidth="280"
+                    styleClass="speed-slider"/>
+
+            <!-- Separator -->
+            <Separator/>
+
+            <!-- Custom Array Input -->
+            <Label text="Custom Array (comma-separated)" styleClass="section-label"/>
+            <HBox spacing="8">
+                <TextField fx:id="customArrayField"
+                           promptText="e.g. 5,3,12,7,1"
+                           prefWidth="210"
+                           styleClass="text-field-styled"/>
+                <Button text="Set" onAction="#onCustomArraySubmit"
+                        styleClass="btn-secondary"/>
+            </HBox>
+
+            <!-- Separator -->
+            <Separator/>
+
+            <!-- Control Buttons -->
+            <Label text="Controls" styleClass="section-label"/>
+            <Button fx:id="generateButton"
+                    text="🎲 Generate Array"
+                    onAction="#onGenerateButtonClicked"
+                    prefWidth="280"
+                    styleClass="btn-secondary"/>
+            <Button fx:id="startButton"
+                    text="▶ Start"
+                    onAction="#onStartButtonClicked"
+                    prefWidth="280"
+                    styleClass="btn-primary"/>
+            <HBox spacing="10">
+                <Button fx:id="pauseButton"
+                        text="⏸ Pause"
+                        onAction="#onPauseButtonClicked"
+                        prefWidth="135"
+                        disable="true"
+                        styleClass="btn-warning"/>
+                <Button fx:id="resetButton"
+                        text="↺ Reset"
+                        onAction="#onResetButtonClicked"
+                        prefWidth="135"
+                        styleClass="btn-danger"/>
+            </HBox>
+
+            <!-- Separator -->
+            <Separator/>
+
+            <!-- Algorithm Info -->
+            <Label text="Algorithm Info" styleClass="section-label"/>
+            <Label fx:id="algorithmInfoLabel"
+                   text="—"
+                   styleClass="algo-info-label"
+                   wrapText="true"
+                   prefWidth="280"/>
+
+        </VBox>
+    </right>
+
+</BorderPane>
